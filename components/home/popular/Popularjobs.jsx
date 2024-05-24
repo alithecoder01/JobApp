@@ -19,6 +19,12 @@ const Popularjobs = () => {
     query: "React developer",
     num_pages: "1",
   });
+
+  const [selectedJob, setSelectedJob]=useState()
+
+  const handleCardPress = (item)=>{
+
+  }
   return (
     <View style={styles.container}>
       {/* For the header */}
@@ -39,7 +45,10 @@ const Popularjobs = () => {
             data={data}
             renderItem={({ item }) => (
             <PopularJobCard 
-            item={item} />)}
+            item={item}
+            handleCardPress={handleCardPress}
+            selectedJob={selectedJob}
+            />)}
             keyExtractor={item => item?.job_id}
             contentContainerStyle={{ columnGap: SIZES.medium }}
             horizontal
