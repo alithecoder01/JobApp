@@ -12,6 +12,7 @@ import {
 
 const Home = () => {
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -20,11 +21,11 @@ const Home = () => {
           headerStyle: { backgroundColor: COLORS.lightWhite },
           headerShadowVisible: false,
           headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimension='60%' />
+            <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
           ),
 
           headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimension='100%' />
+            <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
           ),
 
           headerTitle: "",
@@ -32,11 +33,18 @@ const Home = () => {
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{flex:1,padding:SIZES.medium}}>
-
-            <Welcome/>
-            <Popularjobs/>
-            <Nearbyjobs/>
+        <View style={{ flex: 1, padding: SIZES.medium }}>
+          <Welcome
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            handleClick={() => {
+              if (searchTerm) {
+                router.push(`/search/${searchTerm}`);
+              }
+            }}
+          />
+          <Popularjobs />
+          <Nearbyjobs />
         </View>
       </ScrollView>
     </SafeAreaView>
