@@ -21,18 +21,20 @@ import { COLORS, icons, SIZES } from "../../constants";
 import useFetch from "../../hook/useFetch";
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
-const [activeTab,setActiveTab]= useState(tabs[0]);
 
-const JobDetails = ()=> {
+
+const JobDetails = () => {
   const params = useLocalSearchParams();
   const router = useRouter();
 
-  const { data, isLoading, error, refetch } = useFetch('job-details', {
+  const { data, isLoading, error, refetch } = useFetch("job-details", {
     job_id: params.id,
-  })
+  });
+
+  const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const [refreshing, setRefreshing] = useState(false);
-  const onRefresh = () => {}
+  const onRefresh = () => {};
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -66,7 +68,7 @@ const JobDetails = ()=> {
             <ActivityIndicator size="large" color={COLORS.primary} />
           ) : error ? (
             <Text>Some thing went wrong</Text>
-          ) : data.length === 0 ? (
+          ) : !data || data.length === 0 ? (
             <Text>No Data</Text>
           ) : (
             <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
@@ -78,9 +80,9 @@ const JobDetails = ()=> {
               />
 
               <JobTabs
-              tabs={tabs}
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}              
+                tabs={tabs}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
               />
             </View>
           )}
